@@ -16,7 +16,7 @@ local function CheckPing(player)
 
 		if pingHits[player] == nil then pingHits[player] = 0 end
 
-		if ping >= maxPing then 
+		if ping >= maxPing then
 			pingHits[player] = pingHits[player] + 1
 
 			print(name .. " was warned. (Ping: " .. ping .. "ms, Warning: " .. pingHits[player] .. "/3)")
