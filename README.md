@@ -1,6 +1,7 @@
 # Ping Kick
 ### Kick players on a CFX servers (FiveM and RedM), for having a high ping.
 
+`git submodule add https://github.com/VIRUXE/cfx-pingkick/ pingkick`
 
 ###### Available *ConVars*:
 - `set pingkick 150 # Maxmimum ping allowed (I'd say 150 is good enough)`
