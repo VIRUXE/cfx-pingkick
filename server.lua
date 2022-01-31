@@ -1,11 +1,11 @@
-local maxPing       = GetConvarInt("pingkick", 150)
+local limit       	= GetConvarInt("pingkick", 150)
 local checkInterval = GetConvarInt("pingkick_interval", 5000)
-local kickWarning   = GetConvar("pingkick_warning", "Your ping is too high. Fix it. (%dms, Warning: %d/3)")
-local kickReason    = GetConvar("pingkick_reason", "You were kicked for having a high ping. (%dms)")
+local warningStr   	= GetConvar("pingkick_warning", "Your ping is too high. Fix it. (%dms, Warning: %d/3)")
+local reasonStr    	= GetConvar("pingkick_reason", "You were kicked for having a high ping. (%dms)")
 
 local pingHits      = {}
 
-print("Limit set to " .. maxPing)
+print("Limit set to " .. limit)
 
 local function CheckPing(player)
 	CreateThread(function()
@@ -16,11 +16,11 @@ local function CheckPing(player)
 
 		if pingHits[player] == nil then pingHits[player] = 0 end
 
-		if ping >= maxPing then
+		if ping >= limit then
 			pingHits[player] = pingHits[player] + 1
 
 			print(name .. " was warned. (Ping: " .. ping .. "ms, Warning: " .. pingHits[player] .. "/3)")
-			TriggerClientEvent("chat:addMessage", player, {args = {'Ping', kickWarning:format(ping, pingHits[player])}})
+			TriggerClientEvent("chat:addMessage", player, {args = {'Ping', warningStr:format(ping, pingHits[player])}})
 		elseif pingHits[player] > 0 then
 			pingHits[player] = pingHits[player] - 1
 		end
@@ -30,7 +30,7 @@ local function CheckPing(player)
 
 			print(name .. " was kicked. (Ping: " .. ping .. "ms)")
 
-			DropPlayer(player, kickReason:format(ping))
+			DropPlayer(player, reasonStr:format(ping))
 		end
 	end)
 end
